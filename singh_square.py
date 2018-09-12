@@ -5,9 +5,9 @@ Sept 10, 2018'''
 
 from random import sample, shuffle
 
-N_HUNTERS = 5
-COLS = 5
-ROWS = 5
+N_HUNTERS = 6
+COLS = 6
+ROWS = 6
 
 class Cell(object):
     def __init__(self,contents):
@@ -16,12 +16,12 @@ class Cell(object):
 
 class Grid(object):
     '''creates an m x n grid
-    defaults to 5x5'''
+    '''
     def __init__(self):
         self.m = ROWS #rows
         self.n = COLS #cols
-        self.inputList = [0 for i in range(25)]
-        indices = sample(list(range(25)),N_HUNTERS)
+        self.inputList = [0 for i in range(ROWS*COLS)]
+        indices = sample(list(range(ROWS*COLS)),N_HUNTERS)
         #print(indices)
 
         for num in indices:
@@ -48,10 +48,10 @@ class Grid(object):
                     continue
                 else:
                     #replace rows and columns with '_'
-                    for x in range(5):
+                    for x in range(COLS):
                         if self.cellList[r][x].contents != 'H':
                             self.cellList[r][x].contents = '_'
-                    
+                    for x in range(ROWS):
                         if self.cellList[x][c].contents != 'H':
                             self.cellList[x][c].contents = '_'
 
@@ -95,8 +95,6 @@ def shuffleList(a):
     shuffle(output)
     return output
 
-N_HUNTERS = 5
-
 '''g = Grid([0,0,0,'H',0,
         0,0,0,0,0,
         0,'H',0,0,0,
@@ -108,16 +106,31 @@ while True: #for k in range(10000):
     g.hunt()
     sc = g.scoreList()
     print(sc)
-    if sc == 3:
+    if sc == 4:
         g.render()
-        break
+
     #print(g.scoreList())
 
-'''Solution:
+'''Solution for 3 Rabbits (0's) and 5 Hunters:
 0 0 _ _ _ 
 _ _ _ H H 
 _ _ _ _ H 
 0 _ _ _ _ 
 _ _ H H _
 
+Solutions for 4 Rabbits and 6 Hunters:
+
+_ H _ _ _ _ 
+_ _ _ H _ H 
+H _ _ H _ _ 
+_ H _ _ _ _ 
+_ _ _ _ 0 _ 
+_ _ 0 _ 0 0 
+
+_ 0 _ _ 0 0 
+_ _ _ _ 0 _ 
+_ _ _ _ _ _ 
+H _ _ H _ _ 
+_ _ H H _ _ 
+_ _ H H _ _ 
 '''
